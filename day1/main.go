@@ -45,7 +45,6 @@ func main() {
 	sum = 0
 	prev = 0
 	var tmp, tmp2, prev2, prev3 int
-	flop := true
 	scanner2 := bufio.NewScanner(file2)
 	for scanner2.Scan() {
 		cur := scanner2.Text()
@@ -63,12 +62,8 @@ func main() {
 		}
 		if prev3 == 0 {
 			prev3 = curInt
-			continue
-		}
-
-		if flop {
 			tmp = prev + prev2 + prev3
-			flop = false
+			continue
 		}
 
 		prev = prev2

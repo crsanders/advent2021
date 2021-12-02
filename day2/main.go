@@ -2,16 +2,31 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	// Part 1
-	file, err := os.Open("input.txt")
+	part1, err := part1("input.txt")
 	if err != nil {
 		panic(err)
+	}
+	println("Part 1 Total:", part1)
+
+	part2, err := part2("input.txt")
+	if err != nil {
+		panic(err)
+	}
+	println("Part 2 Total:", part2)
+}
+
+func part1(inputFile string) (total int, err error) {
+	file, err := os.Open(inputFile)
+	if err != nil {
+		err = fmt.Errorf("could not open file: %w", err)
+		return
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
@@ -23,9 +38,10 @@ func main() {
 
 		dir := slice[0]
 		dis := slice[1]
-		disInt, err := strconv.Atoi(dis)
+		disInt, convertErr := strconv.Atoi(dis)
 		if err != nil {
-			panic(err)
+			err = fmt.Errorf("could not convert string to int: %w", convertErr)
+			return
 		}
 
 		switch dir {
@@ -38,30 +54,30 @@ func main() {
 		}
 	}
 
-	total := h * d
-	println(total)
+	total = h * d
+	return
+}
 
-	// Part 2
-	file2, err := os.Open("input.txt")
+func part2(inputFile string) (total int, err error) {
+	file, err := os.Open(inputFile)
 	if err != nil {
-		panic(err)
+		err = fmt.Errorf("could not open file: %w", err)
+		return
 	}
 	defer file.Close()
-	scanner2 := bufio.NewScanner(file2)
+	scanner := bufio.NewScanner(file)
 
-	h = 0
-	d = 0
-	total = 0
-	var a int
-	for scanner2.Scan() {
-		text := scanner2.Text()
+	var h, d, a int
+	for scanner.Scan() {
+		text := scanner.Text()
 		slice := strings.Split(text, " ")
 
 		dir := slice[0]
 		dis := slice[1]
-		disInt, err := strconv.Atoi(dis)
+		disInt, convertErr := strconv.Atoi(dis)
 		if err != nil {
-			panic(err)
+			err = fmt.Errorf("could not convert string to int: %w", convertErr)
+			return
 		}
 
 		switch dir {
@@ -76,5 +92,5 @@ func main() {
 	}
 
 	total = h * d
-	println(total)
+	return
 }

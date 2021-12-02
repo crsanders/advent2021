@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	// Part 1
 	file, err := os.Open("input.txt")
 	if err != nil {
 		panic(err)
@@ -14,7 +15,6 @@ func main() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 
-	// Part 1
 	var sum, prev int
 	for scanner.Scan() {
 		cur := scanner.Text()

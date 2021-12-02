@@ -36,7 +36,7 @@ func main() {
 	println(sum)
 
 	// Part 2
-	file2, err := os.Open("example.txt")
+	file2, err := os.Open("input.txt")
 	if err != nil {
 		panic(err)
 	}
